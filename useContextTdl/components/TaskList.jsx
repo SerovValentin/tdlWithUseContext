@@ -10,6 +10,13 @@ export const TaskList = (props) => {
   });
   const [currentTask, setCurrentTask] = useState({});
 
+  const deleteTaskHandler = (id) => {
+    props.requestDeleteTask(id);
+    setSearchResult((prevSearchResult) =>
+      prevSearchResult.filter((task) => task.id !== id)
+    );
+  };
+
   const updateTaskHandler = () => {
     if (updatedTask.title.trim()) {
       props.updateTask({ id: currentTask.id, ...updatedTask });
@@ -95,7 +102,7 @@ export const TaskList = (props) => {
                 <button
                   className="btn-del"
                   onClick={() => {
-                    props.deleteTaskHandler(task.id);
+                    deleteTaskHandler(task.id);
                   }}
                 >
                   x
