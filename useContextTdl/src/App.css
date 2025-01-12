@@ -1,0 +1,88 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.tdl {
+  width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  height: auto;
+  border: 1px, solid, grey;
+  border-radius: 5px;
+}
+
+.addTask {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.addTask > input {
+  width: 230px;
+  height: 25px;
+}
+
+.searchForm {
+  width: 300px;
+  margin: auto;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.searchForm > input {
+  width: 230px;
+  height: 25px;
+}
+
+.tlList {
+  list-style-type: none;
+  width: 400px;
+  margin: auto;
+  padding: 5px;
+}
+
+.tlList > li {
+  padding: 1px;
+  white-space: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
+.taskPage {
+  width: 400px;
+  margin: 0 auto;
+  padding: 2px;
+}
+
+.editTask {
+  width: 350px;
+  margin: auto;
+  padding: 5px;
+}
+
+.editTask > input {
+  width: 220px;
+  margin: 5px;
+  height: 25px;
+}
+
+.btn {
+  padding: 0 7px;
+  background-color: aqua;
+  border-radius: 5px;
+  margin: 2px 5px;
+  height: 25px;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: aquamarine;
+}
+
+.btn-del {
+  color: red;
+  padding: 0px 3px;
+  background-color: inherit;
+  border: none;
+}
