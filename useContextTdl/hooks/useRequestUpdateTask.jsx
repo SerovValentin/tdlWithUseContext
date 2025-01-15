@@ -1,4 +1,10 @@
+import { useState } from "react";
 export const useRequestUpdateTask = (setTaskList) => {
+  const [updatedTask, setUpdatedTask] = useState({
+    title: "",
+  });
+  const [currentTask, setCurrentTask] = useState({});
+
   const updateTask = (updatedTask) => {
     fetch(`http://localhost:3000/tasklist/${updatedTask.id}`, {
       method: "PUT",
@@ -25,5 +31,11 @@ export const useRequestUpdateTask = (setTaskList) => {
       });
   };
 
-  return { updateTask };
+  return {
+    updateTask,
+    updatedTask,
+    setUpdatedTask,
+    currentTask,
+    setCurrentTask,
+  };
 };

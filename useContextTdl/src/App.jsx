@@ -8,8 +8,13 @@ import { useRequestUpdateTask } from "../hooks/useRequestUpdateTask";
 function App() {
   const { taskList, setTaskList } = useRequestGetTaskList();
   const { requestDeleteTask } = useRequestDeleteTask(setTaskList);
-
-  const { updateTask } = useRequestUpdateTask(setTaskList);
+  const {
+    updateTask,
+    setCurrentTask,
+    setUpdatedTask,
+    currentTask,
+    updatedTask,
+  } = useRequestUpdateTask(setTaskList);
 
   return (
     <>
@@ -20,6 +25,10 @@ function App() {
           taskList={taskList}
           requestDeleteTask={requestDeleteTask}
           updateTask={updateTask}
+          setCurrentTask={setCurrentTask}
+          setUpdatedTask={setUpdatedTask}
+          currentTask={currentTask}
+          updatedTask={updatedTask}
         />
       </div>
     </>

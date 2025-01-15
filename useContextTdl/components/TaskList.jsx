@@ -1,14 +1,18 @@
 import { Button } from "./Button";
 import { useState } from "react";
 import myIcon from "../img/myIcon.svg";
+import { debounce } from "../utils/utils";
+import { Task } from "./Task";
 
-export const TaskList = (props) => {
+export const TaskList = ({
+  setUpdatedTask,
+  setCurrentTask,
+  taskList,
+  setTaskList,
+  ...props
+}) => {
   const [searchResult, setSearchResult] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
-  const [updatedTask, setUpdatedTask] = useState({
-    title: "",
-  });
-  const [currentTask, setCurrentTask] = useState({});
 
   const deleteTaskHandler = (id) => {
     props.requestDeleteTask(id);
@@ -17,36 +21,17 @@ export const TaskList = (props) => {
     );
   };
 
-  const updateTaskHandler = () => {
-    if (updatedTask.title.trim()) {
-      props.updateTask({ id: currentTask.id, ...updatedTask });
-      setUpdatedTask({ title: "" });
-      setIsEdit(false);
-      setCurrentTask({});
-    }
-  };
-
   const handleSort = () => {
-    const sortedTaskList = [...props.taskList].sort((a, b) =>
+    const sortedTaskList = [...taskList].sort((a, b) =>
       a.title.localeCompare(b.title)
     );
-    props.setTaskList(sortedTaskList);
-  };
-
-  const debounce = (func, delay) => {
-    let timeout;
-    return (...args) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        func(...args);
-      }, delay);
-    };
+    setTaskList(sortedTaskList);
   };
 
   const handleSearch = (e) => {
     if (e.target.value !== "") {
       setSearchResult(
-        props.taskList.filter((task) => {
+        taskList.filter((task) => {
           return task.title
             .toLowerCase()
             .includes(e.target.value.toLowerCase());
@@ -69,23 +54,18 @@ export const TaskList = (props) => {
         <Button onClick={handleSort}>↓↑</Button>
       </div>
       {isEdit && (
-        <div className="editTask">
-          <input
-            type="text"
-            value={updatedTask.title}
-            onChange={(e) => setUpdatedTask({ title: e.target.value })}
-          />
-          <Button
-            onClick={() => {
-              updateTaskHandler();
-            }}
-          >
-            Сохранить
-          </Button>
-        </div>
+        <Task
+          setTaskList={setTaskList}
+          setIsEdit={setIsEdit}
+          setUpdatedTask={setUpdatedTask}
+          setCurrentTask={setCurrentTask}
+          currentTask={props.currentTask}
+          updatedTask={props.updatedTask}
+          updateTask={props.updateTask}
+        />
       )}
       <ul className="tlList">
-        {(searchResult.length > 0 ? searchResult : props.taskList || []).map(
+        {(searchResult.length > 0 ? searchResult : taskList || []).map(
           (task) => {
             return (
               <li key={task.id}>
