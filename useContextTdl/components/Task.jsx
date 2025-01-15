@@ -1,5 +1,5 @@
 import { Button } from "./Button";
-import { useRequestUpdateTask } from "../hooks/useRequestUpdateTask";
+
 export const Task = (props) => {
   const updateTaskHandler = () => {
     if (props.updatedTask.title.trim()) {
