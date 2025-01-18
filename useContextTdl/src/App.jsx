@@ -4,6 +4,7 @@ import { TaskList } from "../components/TaskList";
 import { useRequestGetTaskList } from "../hooks/useRequestGetTaskList";
 import { useRequestDeleteTask } from "../hooks/useRequestDeleteTask";
 import { useRequestUpdateTask } from "../hooks/useRequestUpdateTask";
+import { AppContextProvider } from "../hooks/app-context-provider";
 
 function App() {
   const { taskList, setTaskList } = useRequestGetTaskList();
@@ -17,21 +18,27 @@ function App() {
   } = useRequestUpdateTask(setTaskList);
 
   return (
-    <>
+    <AppContextProvider
+      taskList={taskList}
+      updateTask={updateTask}
+      currentTask={currentTask}
+      updatedTask={updatedTask}
+      setCurrentTask={setCurrentTask}
+      setUpdatedTask={setUpdatedTask}
+      setTaskList={setTaskList}
+    >
       <div className="tdl">
         <h1>ToDoList</h1>
         <AddTask setTaskList={setTaskList} />
         <TaskList
           taskList={taskList}
           requestDeleteTask={requestDeleteTask}
-          updateTask={updateTask}
           setCurrentTask={setCurrentTask}
           setUpdatedTask={setUpdatedTask}
-          currentTask={currentTask}
-          updatedTask={updatedTask}
+          setTaskList={setTaskList}
         />
       </div>
-    </>
+    </AppContextProvider>
   );
 }
 

@@ -3,16 +3,15 @@ import { useState } from "react";
 import myIcon from "../img/myIcon.svg";
 import { debounce } from "../utils/utils";
 import { Task } from "./Task";
+import { useContext } from "react";
+import { AppContext } from "../hooks/Context";
+import { UpdateContext } from "../hooks/UpdateContext";
 
-export const TaskList = ({
-  setUpdatedTask,
-  setCurrentTask,
-  taskList,
-  setTaskList,
-  ...props
-}) => {
+export const TaskList = ({ ...props }) => {
   const [searchResult, setSearchResult] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
+  const { taskList, setTaskList } = useContext(AppContext);
+  const { setCurrentTask, setUpdatedTask } = useContext(UpdateContext);
 
   const deleteTaskHandler = (id) => {
     props.requestDeleteTask(id);
@@ -53,17 +52,7 @@ export const TaskList = ({
         />
         <Button onClick={handleSort}>↓↑</Button>
       </div>
-      {isEdit && (
-        <Task
-          setTaskList={setTaskList}
-          setIsEdit={setIsEdit}
-          setUpdatedTask={setUpdatedTask}
-          setCurrentTask={setCurrentTask}
-          currentTask={props.currentTask}
-          updatedTask={props.updatedTask}
-          updateTask={props.updateTask}
-        />
-      )}
+      {isEdit && <Task setIsEdit={setIsEdit} />}
       <ul className="tlList">
         {(searchResult.length > 0 ? searchResult : taskList || []).map(
           (task) => {

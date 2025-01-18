@@ -1,20 +1,31 @@
+import { useContext } from "react";
 import { Button } from "./Button";
 
+import { UpdateContext } from "../hooks/UpdateContext";
+
 export const Task = (props) => {
+  const {
+    updateTask,
+    setCurrentTask,
+    setUpdatedTask,
+    currentTask,
+    updatedTask,
+  } = useContext(UpdateContext);
+
   const updateTaskHandler = () => {
-    if (props.updatedTask.title.trim()) {
-      props.updateTask({ id: props.currentTask.id, ...props.updatedTask });
-      props.setUpdatedTask({ title: "" });
+    if (updatedTask.title.trim()) {
+      updateTask({ id: currentTask.id, ...updatedTask });
+      setUpdatedTask({ title: "" });
       props.setIsEdit(false);
-      props.setCurrentTask({});
+      setCurrentTask({});
     }
   };
   return (
     <div className="editTask">
       <input
         type="text"
-        value={props.updatedTask.title}
-        onChange={(e) => props.setUpdatedTask({ title: e.target.value })}
+        value={updatedTask.title}
+        onChange={(e) => setUpdatedTask({ title: e.target.value })}
       />
       <Button
         onClick={() => {
